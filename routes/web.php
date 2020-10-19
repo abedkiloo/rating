@@ -17,8 +17,13 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 $router->post('/register','UsersController@register');
-$router->get('/key', function() {
-    return \Illuminate\Support\Str::random(32);
+$router->post('/login','UsersController@login');
+//$router->post('/rating','RatingController@rating')->middleware('auth');
+$router->post('/', ['middleware' => 'auth', function () {
+
+}]);
+$router->group(['prefix' => 'v1', 'middleware' => 'auth'], function () use ($router) {
+    $router->post('/rating','RatingController@rating');
 });
 //$router->get('/test_endpoint', function (Request $request) {
 //})->middleware('client');

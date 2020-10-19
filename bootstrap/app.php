@@ -82,14 +82,15 @@ $app->configure('app');
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
-$app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
-]);
-
 //$app->routeMiddleware([
 //    'auth' => App\Http\Middleware\Authenticate::class,
-//    'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
 //]);
+
+
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+    'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
