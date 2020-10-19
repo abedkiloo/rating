@@ -43,7 +43,7 @@ class RatingController extends Controller
 
     public function user_rating(Request $request, $id)
     {
-        $rating = UserRating::with(['rated_user','user_rating'])->where('user_id', $id)->get();
+        $rating = UserRating::with(['rated_user','user_rating'])->where('user_rated_id', $id)->get();
         $response = ['data' => $rating, 'message' => "successfully retrieved user rating", 'status' => true];
         return response()->json($response, 200);
     }

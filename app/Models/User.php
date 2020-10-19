@@ -45,7 +45,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
     public function getAverageUserRatingAttribute()
     {
-        return $user_rating = UserRating::where('user_rated_id')->sum('rating_score');
+        return $user_rating = round(UserRating::where('user_rated_id',$this->id)->average('rating_score'),1);
     }
 
 }
