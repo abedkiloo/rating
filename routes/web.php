@@ -19,11 +19,10 @@ $router->get('/', function () use ($router) {
 $router->post('/register','UsersController@register');
 $router->post('/login','UsersController@login');
 //$router->post('/rating','RatingController@rating')->middleware('auth');
-$router->post('/', ['middleware' => 'auth', function () {
-
-}]);
 $router->group(['prefix' => 'v1', 'middleware' => 'auth'], function () use ($router) {
-    $router->post('/rating','RatingController@rating');
+    $router->post('/rating','RatingController@index');
+    $router->get('/ratings','RatingController@rating');
+    $router->get('/rating/{id}','RatingController@user_rating');
 });
 //$router->get('/test_endpoint', function (Request $request) {
 //})->middleware('client');

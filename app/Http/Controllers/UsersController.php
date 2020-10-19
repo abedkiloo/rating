@@ -20,8 +20,8 @@ class UsersController extends Controller
             'password' => 'required'
         ]);
 
-        if($validator->fails()){
-            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        if ($validator->fails()) {
+            return response(['message' => 'Validation errors', 'errors' => $validator->errors(), 'status' => false], 422);
         }
 
         $input = $request->all();
@@ -29,19 +29,20 @@ class UsersController extends Controller
         $user = User::create($input);
 
         /**Take note of this: Your user authentication access token is generated here **/
-        $data['token'] =  $user->createToken('MyApp')->accessToken;
-        $data['name'] =  $user->name;
+        $data['token'] = $user->createToken('MyApp')->accessToken;
+        $data['name'] = $user->name;
 
         return response(['data' => $data, 'message' => 'Account created successfully!', 'status' => true]);
     }
-    public function login (Request $request) {
+
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required|string|min:6',
         ]);
-        if ($validator->fails())
-        {
-            return response(['errors'=>$validator->errors()->all()], 422);
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
         }
         $user = User::where('email', $request->email)->first();
         if ($user) {
@@ -54,7 +55,7 @@ class UsersController extends Controller
                 return response($response, 422);
             }
         } else {
-            $response = ["message" =>'User does not exist'];
+            $response = ["message" => 'User does not exist'];
             return response($response, 422);
         }
     }
