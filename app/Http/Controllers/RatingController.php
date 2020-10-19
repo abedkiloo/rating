@@ -34,6 +34,7 @@ class RatingController extends Controller
 
     public function user_rating(Request $request, $id)
     {
+
         $rating = UserRating::with(['rated_user'])->where('user_id',$id)->get();
         return response()->json($rating, 200);
     }
