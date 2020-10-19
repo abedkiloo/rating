@@ -14,16 +14,18 @@ class RatingController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_rated_id' => 'required|exists:users,id',
-            'rating_score' => 'required'
+            'rating_score' => 'required|numeric|min:0|max:10'
         ]);
 
         if ($validator->fails()) {
             return response(['message' => 'Validation errors', 'errors' => $validator->errors(), 'status' => false], 422);
         }
-        $input = $request->all();
+      return  $input = $request->all();
         $input['user_id'] = Auth::user()->id;
 
         $new_rating = UserRating::create($input);
+        return response()->json("successfully added user rating", 200);
+
     }
 
     public function rating()
