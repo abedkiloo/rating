@@ -23,20 +23,22 @@ class RatingController extends Controller
         $input['user_id'] = Auth::user()->id;
 
         $new_rating = UserRating::create($input);
-        return response()->json("successfully added user rating", 200);
+        $response = ['response' => "successfully added user rating",'data'=>null,'status' => true];
+        return response()->json($response, 200);
 
     }
 
     public function rating()
     {
         $rating = UserRating::with(['rated_user'])->get();
-        return response()->json($rating, 200);
+        $response=['data'=>$rating,'message'=>"successfully retrieved users rating",'status' => true];
+        return response()->json($response, 200);
     }
 
     public function user_rating(Request $request, $id)
     {
-
-        $rating = UserRating::with(['rated_user'])->where('user_id',$id)->get();
-        return response()->json($rating, 200);
+        $rating = UserRating::with(['rated_user'])->where('user_id', $id)->get();
+        $response=['data'=>$rating,'message'=>"successfully retrieved user rating",'status' => true];
+        return response()->json($response, 200);
     }
 }

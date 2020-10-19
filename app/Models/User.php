@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-//    use Authenticatable, Authorizable, HasFactory;
     use HasApiTokens, Authenticatable, Authorizable;
+
+    protected $appends = ['average_user_rating'];
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +21,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email','password'
+        'name', 'email', 'password'
     ];
 
     /**
@@ -32,4 +32,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function getAverageUserRatingAttribute()
+    {
+        return $user_rating = UserRating::where('user_rated_id')->sum('rating_score');
+    }
+
 }

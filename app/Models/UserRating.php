@@ -12,7 +12,6 @@ class UserRating extends Model
     protected $fillable = [
         'user_id', 'user_rated_id', 'rating_score', 'created_at'
     ];
-    protected $appends = ['average_user_rating'];
 
     public function getCreatedAtAttribute($value)
     {
@@ -22,11 +21,6 @@ class UserRating extends Model
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
-    }
-
-    public function getAverageUserRatingAttribute()
-    {
-        return $user_rating = UserRating::where('user_rated_id')->sum('rating_score');
     }
 
     public function user_rating()

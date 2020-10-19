@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserRating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -58,5 +59,11 @@ class UsersController extends Controller
             $response = ["message" => 'User does not exist'];
             return response($response, 422);
         }
+    }
+    public function user_rating(Request $request, $id)
+    {
+        $users = User::with(['rated_user'])->where('user_id', $id)->get();
+        $response=['data'=>$users,'message'=>"successfully retrieved users",'status' => true];
+        return response()->json($response, 200);
     }
 }
