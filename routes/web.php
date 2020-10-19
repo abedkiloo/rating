@@ -21,7 +21,8 @@ $router->post('/login','UsersController@login');
 //$router->post('/rating','RatingController@rating')->middleware('auth');
 $router->group(['prefix' => 'v1', 'middleware' => 'auth'], function () use ($router) {
     $router->post('/rating','RatingController@index');
-    $router->post('/users','UsersController@users');
+    $router->get('/users','UsersController@users');
+    $router->get('/user/{id}','UsersController@users');
     $router->get('/ratings','RatingController@rating');
     $router->get('/rating/{id}','RatingController@user_rating');
 });
