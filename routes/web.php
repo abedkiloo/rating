@@ -22,7 +22,7 @@ $router->post('/login','UsersController@login');
 $router->group(['prefix' => 'v1', 'middleware' => 'auth'], function () use ($router) {
     $router->post('/rating','RatingController@index');
     $router->get('/users','UsersController@users');
-    $router->get('/user/{id}','UsersController@users');
+    $router->get('/user/{id}','UsersController@user');
     $router->get('/ratings','RatingController@rating');
     $router->get('/rating/{id}','RatingController@user_rating');
 });
