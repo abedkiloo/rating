@@ -20,7 +20,6 @@ class RatingController extends Controller
         if ($validator->fails()) {
             return response(['message' => 'Validation errors', 'errors' => $validator->errors(), 'status' => false], 422);
         }
-      return  $input = $request->all();
         $input['user_id'] = Auth::user()->id;
 
         $new_rating = UserRating::create($input);
