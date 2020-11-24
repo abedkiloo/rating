@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Database\Console\Migrations\BaseCommand;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class MigrateToBranch extends BaseCommand
 {
@@ -106,7 +107,9 @@ class MigrateToBranch extends BaseCommand
 
         return collect($migrations)->reject(function ($migration) {
             // We only need migrations that don't exist in the dest branch
-            return !starts_with($migration, 'D');
+//          return  Illuminate\Support\Str::startsWith($migration,"D");
+
+            return !Str::startsWith($migration,"D");
         })->map(function ($migration) {
             return basename($migration, '.php');
         });
