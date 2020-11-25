@@ -27,7 +27,7 @@ class UpdateUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string("test_migrate");
+            $table->dropColumn(["test_migrate"]);
 
         });
     }
